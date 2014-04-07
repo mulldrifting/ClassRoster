@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface RosterViewController : UIViewController
+
+@property (nonatomic, strong) NSMutableArray *students;
+@property (nonatomic, strong) NSMutableArray *teachers;
 
 @end

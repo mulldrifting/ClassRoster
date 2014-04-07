@@ -14,13 +14,16 @@
 		FE89642218F32369000AB713 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89642118F32369000AB713 /* main.m */; };
 		FE89642618F32369000AB713 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89642518F32369000AB713 /* AppDelegate.m */; };
 		FE89642918F32369000AB713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE89642718F32369000AB713 /* Main.storyboard */; };
-		FE89642C18F32369000AB713 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89642B18F32369000AB713 /* ViewController.m */; };
+		FE89642C18F32369000AB713 /* RosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89642B18F32369000AB713 /* RosterViewController.m */; };
 		FE89642E18F32369000AB713 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE89642D18F32369000AB713 /* Images.xcassets */; };
 		FE89643518F32369000AB713 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89643418F32369000AB713 /* XCTest.framework */; };
 		FE89643618F32369000AB713 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89641518F32369000AB713 /* Foundation.framework */; };
 		FE89643718F32369000AB713 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89641918F32369000AB713 /* UIKit.framework */; };
 		FE89643F18F32369000AB713 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE89643D18F32369000AB713 /* InfoPlist.strings */; };
 		FE89644118F32369000AB713 /* Day1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644018F32369000AB713 /* Day1Tests.m */; };
+		FE89644C18F3288E000AB713 /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644B18F3288E000AB713 /* PersonTableViewCell.m */; };
+		FE89644F18F33726000AB713 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644E18F33726000AB713 /* Person.m */; };
+		FE89645218F343EE000AB713 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89645118F343EE000AB713 /* PersonViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +48,20 @@
 		FE89642418F32369000AB713 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FE89642518F32369000AB713 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FE89642818F32369000AB713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FE89642A18F32369000AB713 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FE89642B18F32369000AB713 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FE89642A18F32369000AB713 /* RosterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RosterViewController.h; sourceTree = "<group>"; };
+		FE89642B18F32369000AB713 /* RosterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RosterViewController.m; sourceTree = "<group>"; };
 		FE89642D18F32369000AB713 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FE89643318F32369000AB713 /* Day1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Day1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE89643418F32369000AB713 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FE89643C18F32369000AB713 /* Day1Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Day1Tests-Info.plist"; sourceTree = "<group>"; };
 		FE89643E18F32369000AB713 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FE89644018F32369000AB713 /* Day1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Day1Tests.m; sourceTree = "<group>"; };
+		FE89644A18F3288E000AB713 /* PersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
+		FE89644B18F3288E000AB713 /* PersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
+		FE89644D18F33726000AB713 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		FE89644E18F33726000AB713 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		FE89645018F343EE000AB713 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
+		FE89645118F343EE000AB713 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +124,10 @@
 				FE89642418F32369000AB713 /* AppDelegate.h */,
 				FE89642518F32369000AB713 /* AppDelegate.m */,
 				FE89642718F32369000AB713 /* Main.storyboard */,
-				FE89642A18F32369000AB713 /* ViewController.h */,
-				FE89642B18F32369000AB713 /* ViewController.m */,
+				FE89642A18F32369000AB713 /* RosterViewController.h */,
+				FE89642B18F32369000AB713 /* RosterViewController.m */,
+				FE89645018F343EE000AB713 /* PersonViewController.h */,
+				FE89645118F343EE000AB713 /* PersonViewController.m */,
 				FE89642D18F32369000AB713 /* Images.xcassets */,
 				FE89641C18F32369000AB713 /* Supporting Files */,
 			);
@@ -126,10 +137,14 @@
 		FE89641C18F32369000AB713 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FE89644A18F3288E000AB713 /* PersonTableViewCell.h */,
+				FE89644B18F3288E000AB713 /* PersonTableViewCell.m */,
 				FE89641D18F32369000AB713 /* Day1-Info.plist */,
 				FE89641E18F32369000AB713 /* InfoPlist.strings */,
 				FE89642118F32369000AB713 /* main.m */,
 				FE89642318F32369000AB713 /* Day1-Prefix.pch */,
+				FE89644D18F33726000AB713 /* Person.h */,
+				FE89644E18F33726000AB713 /* Person.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -249,9 +264,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE89642C18F32369000AB713 /* ViewController.m in Sources */,
+				FE89642C18F32369000AB713 /* RosterViewController.m in Sources */,
 				FE89642618F32369000AB713 /* AppDelegate.m in Sources */,
+				FE89644F18F33726000AB713 /* Person.m in Sources */,
+				FE89644C18F3288E000AB713 /* PersonTableViewCell.m in Sources */,
 				FE89642218F32369000AB713 /* main.m in Sources */,
+				FE89645218F343EE000AB713 /* PersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
