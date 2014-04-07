@@ -7,6 +7,7 @@
 //
 
 #import "PersonViewController.h"
+#import "Person.h"
 
 @interface PersonViewController ()
 
@@ -29,6 +30,12 @@
     // Do any additional setup after loading the view.
     
     self.title = _person.fullName;
+    
+    _personImageView.image = _person.headshot;
+    
+//    _personImageView = [[UIImageView alloc] initWithImage:_person.headshot];
+//    _personTextView = [[UITextView alloc] init];
+    _personTextView.text = _person.contactInfo;
 }
 
 - (void)didReceiveMemoryWarning

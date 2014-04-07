@@ -21,9 +21,10 @@
 		FE89643718F32369000AB713 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89641918F32369000AB713 /* UIKit.framework */; };
 		FE89643F18F32369000AB713 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE89643D18F32369000AB713 /* InfoPlist.strings */; };
 		FE89644118F32369000AB713 /* Day1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644018F32369000AB713 /* Day1Tests.m */; };
-		FE89644C18F3288E000AB713 /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644B18F3288E000AB713 /* PersonTableViewCell.m */; };
 		FE89644F18F33726000AB713 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89644E18F33726000AB713 /* Person.m */; };
 		FE89645218F343EE000AB713 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89645118F343EE000AB713 /* PersonViewController.m */; };
+		FE89645418F354F0000AB713 /* mulldrifter_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE89645318F354F0000AB713 /* mulldrifter_small.jpg */; };
+		FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,12 +57,12 @@
 		FE89643C18F32369000AB713 /* Day1Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Day1Tests-Info.plist"; sourceTree = "<group>"; };
 		FE89643E18F32369000AB713 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FE89644018F32369000AB713 /* Day1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Day1Tests.m; sourceTree = "<group>"; };
-		FE89644A18F3288E000AB713 /* PersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
-		FE89644B18F3288E000AB713 /* PersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
 		FE89644D18F33726000AB713 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		FE89644E18F33726000AB713 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		FE89645018F343EE000AB713 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
 		FE89645118F343EE000AB713 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
+		FE89645318F354F0000AB713 /* mulldrifter_small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mulldrifter_small.jpg; path = ../../../Images/mulldrifter_small.jpg; sourceTree = "<group>"; };
+		FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Code-Fellows-Logo.png"; path = "../../../Images/Code-Fellows-Logo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +130,8 @@
 				FE89645018F343EE000AB713 /* PersonViewController.h */,
 				FE89645118F343EE000AB713 /* PersonViewController.m */,
 				FE89642D18F32369000AB713 /* Images.xcassets */,
+				FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */,
+				FE89645318F354F0000AB713 /* mulldrifter_small.jpg */,
 				FE89641C18F32369000AB713 /* Supporting Files */,
 			);
 			path = Day1;
@@ -137,8 +140,6 @@
 		FE89641C18F32369000AB713 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FE89644A18F3288E000AB713 /* PersonTableViewCell.h */,
-				FE89644B18F3288E000AB713 /* PersonTableViewCell.m */,
 				FE89641D18F32369000AB713 /* Day1-Info.plist */,
 				FE89641E18F32369000AB713 /* InfoPlist.strings */,
 				FE89642118F32369000AB713 /* main.m */,
@@ -245,6 +246,8 @@
 			files = (
 				FE89642E18F32369000AB713 /* Images.xcassets in Resources */,
 				FE89642018F32369000AB713 /* InfoPlist.strings in Resources */,
+				FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */,
+				FE89645418F354F0000AB713 /* mulldrifter_small.jpg in Resources */,
 				FE89642918F32369000AB713 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,7 +270,6 @@
 				FE89642C18F32369000AB713 /* RosterViewController.m in Sources */,
 				FE89642618F32369000AB713 /* AppDelegate.m in Sources */,
 				FE89644F18F33726000AB713 /* Person.m in Sources */,
-				FE89644C18F3288E000AB713 /* PersonTableViewCell.m in Sources */,
 				FE89642218F32369000AB713 /* main.m in Sources */,
 				FE89645218F343EE000AB713 /* PersonViewController.m in Sources */,
 			);

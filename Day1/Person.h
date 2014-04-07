@@ -12,7 +12,8 @@
 
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
-//@property (nonatomic, strong) UIImage *headshot;
+@property (nonatomic, strong) UIImage *headshot;
+@property (nonatomic, strong) NSString *contactInfo;
 
 - (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName;
 - (NSString *)fullName;

@@ -12,5 +12,7 @@
 @interface PersonViewController : UIViewController
 
 @property (nonatomic, weak) Person *person;
+@property (nonatomic, strong) IBOutlet UIImageView *personImageView;
+@property (nonatomic, strong) IBOutlet UITextView *personTextView;
 
 @end

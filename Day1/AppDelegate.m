@@ -13,6 +13,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Code-Fellows-Logo.png"] forBarMetrics:UIBarMetricsDefault];
+
+
+    
     return YES;
 }
 							

@@ -15,6 +15,8 @@
     if (self = [super init]) {
         _firstName = firstName;
         _lastName = lastName;
+        _headshot = [UIImage imageNamed:@"mulldrifter_small.jpg"];
+        _contactInfo = @"Twitter: ";
     }
     
     return self;

@@ -7,6 +7,7 @@
 //
 
 #import "RosterViewController.h"
+#import "PersonViewController.h"
 #import "Person.h"
 
 
@@ -14,6 +15,7 @@
 @interface RosterViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 
 @end
 
@@ -28,6 +30,7 @@
     self.tableView.dataSource = self;
     
     self.title = @"Class Roster";
+//    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
     Person *firstStudent = [[Person alloc] initWithFirstName:@"Sean" lastName:@"Mcneil"];
     Person *secondStudent = [[Person alloc] initWithFirstName:@"Lauren" lastName:@"Lee"];
@@ -84,6 +87,10 @@
     }
 }
 
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 0.0;
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -98,6 +105,7 @@
     }
     
     cell.textLabel.text = person.fullName;
+    cell.imageView.image = person.headshot;
     
     return cell;
 }
@@ -115,7 +123,7 @@
     if ([segue.identifier isEqualToString:@"showPersonSegue"]) {
         // == doesn't work because the two pointers wouldn't be equal
         
-        UIViewController *destinationViewController = segue.destinationViewController;
+        PersonViewController *destinationViewController = segue.destinationViewController;
         
         Person *selectedPerson = [[Person alloc] init];
         if (indexPath.section == 0) {
@@ -123,7 +131,9 @@
         } else {
             selectedPerson = [_teachers objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         }
-        destinationViewController.navigationItem.title = selectedPerson.fullName;
+        [destinationViewController setPerson:selectedPerson];
+
+        //destinationViewController.navigationItem.title = selectedPerson.fullName;
     }
 }
 
