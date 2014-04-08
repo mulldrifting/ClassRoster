@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, personType) {
 
 @interface RosterViewController () <UITableViewDataSource, UITableViewDelegate>
 
-
+@property (nonatomic, strong) NSDictionary *personDictionary;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 
@@ -37,15 +37,26 @@ typedef NS_ENUM(NSInteger, personType) {
     self.title = @"Class Roster";
 //    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
-    Person *firstStudent = [[Person alloc] initWithFirstName:@"Sean" lastName:@"Mcneil" personType:kStudent];
-    Person *secondStudent = [[Person alloc] initWithFirstName:@"Lauren" lastName:@"Lee" personType:kStudent];
-    Person *thirdStudent = [[Person alloc] initWithFirstName:@"Dan" lastName:@"Fairbanks" personType:kStudent];
-    Person *firstTeacher = [[Person alloc] initWithFirstName:@"Brad" lastName:@"Johnson" personType:kTeacher];
-    Person *secondTeacher = [[Person alloc] initWithFirstName:@"John" lastName:@"Clem" personType:kTeacher];
+    _students = [[NSMutableArray alloc] init];
+    _teachers = [[NSMutableArray alloc] init];
     
-    _students = [NSMutableArray arrayWithObjects:firstStudent, secondStudent, thirdStudent, nil];
-    _teachers = [NSMutableArray arrayWithObjects:firstTeacher, secondTeacher, nil];
+//    NSString *plistPath = @"/Users/Drifter/Documents/XCode/Day1/Day1/personList.plist";
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"personList" ofType:@"plist"];
+    _personDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     
+    for(NSString *currentStudentName in _personDictionary[@"studentArray"]) {
+        NSArray *splitName = [currentStudentName componentsSeparatedByString: @" "];
+        
+        Person *newStudent = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
+        [_students addObject:newStudent];
+    }
+    
+    for(NSString *currentTeacherName in _personDictionary[@"teacherArray"]) {
+        NSArray *splitName = [currentTeacherName componentsSeparatedByString: @" "];
+        
+        Person *newTeacher = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
+        [_teachers addObject:newTeacher];
+    }
     
 }
 
@@ -107,10 +118,12 @@ typedef NS_ENUM(NSInteger, personType) {
     
     Person *person;
     
-    if (indexPath.section == 0) {
-        person = [_students objectAtIndex:indexPath.row];
-    } else {
-        person = [_teachers objectAtIndex:indexPath.row];
+    switch (indexPath.section) {
+        case kStudent:
+            person = [_students objectAtIndex:indexPath.row];
+            break;
+        default:
+            person = [_teachers objectAtIndex:indexPath.row];
     }
     
     cell.textLabel.text = person.fullName;
