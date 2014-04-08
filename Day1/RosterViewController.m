@@ -8,8 +8,10 @@
 
 #import "RosterViewController.h"
 #import "PersonViewController.h"
+#import "RosterViewDataSource.h"
 #import "Person.h"
 
+// Enumerator that labels the student type and teacher type
 typedef NS_ENUM(NSInteger, personType) {
     kStudent,
     kTeacher,
@@ -58,15 +60,30 @@ typedef NS_ENUM(NSInteger, personType) {
         [_teachers addObject:newTeacher];
     }
     
+    //Sort teacher and student arrays by first name
+    NSSortDescriptor *firstNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
+    NSArray *sortDescriptors = @[firstNameDescriptor];
+    NSArray *sortedStudentArray = [_students sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *sortedTeacherArray = [_teachers sortedArrayUsingDescriptors:sortDescriptors];
+    //Set teacher and student arrays to sorted arrays
+    _students = [NSMutableArray arrayWithArray:sortedStudentArray];
+    _teachers = [NSMutableArray arrayWithArray:sortedTeacherArray];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     self.navigationItem.title = @"Class Roster";
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     self.navigationItem.title = @"Back";
 }
 
