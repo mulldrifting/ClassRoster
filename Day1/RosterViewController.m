@@ -10,9 +10,14 @@
 #import "PersonViewController.h"
 #import "Person.h"
 
-
+typedef NS_ENUM(NSInteger, personType) {
+    kStudent,
+    kTeacher,
+    numberOfPersonTypes
+};
 
 @interface RosterViewController () <UITableViewDataSource, UITableViewDelegate>
+
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
@@ -32,14 +37,16 @@
     self.title = @"Class Roster";
 //    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
-    Person *firstStudent = [[Person alloc] initWithFirstName:@"Sean" lastName:@"Mcneil"];
-    Person *secondStudent = [[Person alloc] initWithFirstName:@"Lauren" lastName:@"Lee"];
-    Person *thirdStudent = [[Person alloc] initWithFirstName:@"Dan" lastName:@"Fairbanks"];
-    Person *firstTeacher = [[Person alloc] initWithFirstName:@"Brad" lastName:@"Johnson"];
-    Person *secondTeacher = [[Person alloc] initWithFirstName:@"John" lastName:@"Clem"];
+    Person *firstStudent = [[Person alloc] initWithFirstName:@"Sean" lastName:@"Mcneil" personType:kStudent];
+    Person *secondStudent = [[Person alloc] initWithFirstName:@"Lauren" lastName:@"Lee" personType:kStudent];
+    Person *thirdStudent = [[Person alloc] initWithFirstName:@"Dan" lastName:@"Fairbanks" personType:kStudent];
+    Person *firstTeacher = [[Person alloc] initWithFirstName:@"Brad" lastName:@"Johnson" personType:kTeacher];
+    Person *secondTeacher = [[Person alloc] initWithFirstName:@"John" lastName:@"Clem" personType:kTeacher];
     
     _students = [NSMutableArray arrayWithObjects:firstStudent, secondStudent, thirdStudent, nil];
     _teachers = [NSMutableArray arrayWithObjects:firstTeacher, secondTeacher, nil];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -62,15 +69,16 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 //    return numberOfSections;
-    return 2;
+    return numberOfPersonTypes;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return _students.count;
-    } else {
-        return _teachers.count;
+    switch (section) {
+        case kStudent:
+            return _students.count;
+        default:
+            return _teachers.count;
     }
 }
 
@@ -80,10 +88,11 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if (section == 0) {
-        return @"Students";
-    } else {
-        return @"Teachers";
+    switch (section) {
+        case kStudent:
+            return @"Students";
+        default:
+            return @"Teachers";
     }
 }
 
@@ -96,7 +105,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    Person *person = [[Person alloc] init];
+    Person *person;
     
     if (indexPath.section == 0) {
         person = [_students objectAtIndex:indexPath.row];
@@ -123,15 +132,13 @@
     if ([segue.identifier isEqualToString:@"showPersonSegue"]) {
         // == doesn't work because the two pointers wouldn't be equal
         
-        PersonViewController *destinationViewController = segue.destinationViewController;
+        PersonViewController *destination = segue.destinationViewController;
         
-        Person *selectedPerson = [[Person alloc] init];
         if (indexPath.section == 0) {
-            selectedPerson = [_students objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
+            destination.person = [_students objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         } else {
-            selectedPerson = [_teachers objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
+            destination.person = [_teachers objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         }
-        [destinationViewController setPerson:selectedPerson];
 
         //destinationViewController.navigationItem.title = selectedPerson.fullName;
     }

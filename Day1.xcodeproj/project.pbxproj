@@ -25,6 +25,7 @@
 		FE89645218F343EE000AB713 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89645118F343EE000AB713 /* PersonViewController.m */; };
 		FE89645418F354F0000AB713 /* mulldrifter_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE89645318F354F0000AB713 /* mulldrifter_small.jpg */; };
 		FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */; };
+		FE89645818F470D1000AB713 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89645718F470D1000AB713 /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		FE89645118F343EE000AB713 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
 		FE89645318F354F0000AB713 /* mulldrifter_small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mulldrifter_small.jpg; path = ../../../Images/mulldrifter_small.jpg; sourceTree = "<group>"; };
 		FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Code-Fellows-Logo.png"; path = "../../../Images/Code-Fellows-Logo.png"; sourceTree = "<group>"; };
+		FE89645718F470D1000AB713 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE89645818F470D1000AB713 /* AssetsLibrary.framework in Frameworks */,
 				FE89641818F32369000AB713 /* CoreGraphics.framework in Frameworks */,
 				FE89641A18F32369000AB713 /* UIKit.framework in Frameworks */,
 				FE89641618F32369000AB713 /* Foundation.framework in Frameworks */,
@@ -111,6 +114,7 @@
 		FE89641418F32369000AB713 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE89645718F470D1000AB713 /* AssetsLibrary.framework */,
 				FE89641518F32369000AB713 /* Foundation.framework */,
 				FE89641718F32369000AB713 /* CoreGraphics.framework */,
 				FE89641918F32369000AB713 /* UIKit.framework */,
@@ -171,9 +175,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FE89641118F32369000AB713 /* Day1 */ = {
+		FE89641118F32369000AB713 /* Day000002 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day1" */;
+			buildConfigurationList = FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day000002" */;
 			buildPhases = (
 				FE89640E18F32369000AB713 /* Sources */,
 				FE89640F18F32369000AB713 /* Frameworks */,
@@ -183,7 +187,7 @@
 			);
 			dependencies = (
 			);
-			name = Day1;
+			name = Day000002;
 			productName = Day1;
 			productReference = FE89641218F32369000AB713 /* Day1.app */;
 			productType = "com.apple.product-type.application";
@@ -233,7 +237,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FE89641118F32369000AB713 /* Day1 */,
+				FE89641118F32369000AB713 /* Day000002 */,
 				FE89643218F32369000AB713 /* Day1Tests */,
 			);
 		};
@@ -288,7 +292,7 @@
 /* Begin PBXTargetDependency section */
 		FE89643918F32369000AB713 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE89641118F32369000AB713 /* Day1 */;
+			target = FE89641118F32369000AB713 /* Day000002 */;
 			targetProxy = FE89643818F32369000AB713 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -469,7 +473,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day1" */ = {
+		FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day000002" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE89644518F32369000AB713 /* Debug */,

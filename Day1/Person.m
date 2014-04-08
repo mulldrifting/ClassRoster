@@ -10,11 +10,12 @@
 
 @implementation Person
 
-- (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName
+- (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName personType:(NSInteger)personType
 {
     if (self = [super init]) {
         _firstName = firstName;
         _lastName = lastName;
+        _personType = personType;
         _headshot = [UIImage imageNamed:@"mulldrifter_small.jpg"];
         _contactInfo = @"Twitter: ";
     }
@@ -26,5 +27,7 @@
 {
     return [NSString stringWithFormat:@"%@ %@", _firstName, _lastName];
 }
+
+
 
 @end
