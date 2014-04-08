@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DE48F735-92A6-4039-8C56-8E57BCD159AD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Day1</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6C2EAA38-FE3A-424F-A712-BC1E3BB2BB22</key>
+		<string>https://github.com/neruka/ClassRoster.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Day1.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6C2EAA38-FE3A-424F-A712-BC1E3BB2BB22</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/neruka/ClassRoster.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6C2EAA38-FE3A-424F-A712-BC1E3BB2BB22</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6C2EAA38-FE3A-424F-A712-BC1E3BB2BB22</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Day1</string>
+		</dict>
+	</array>
+</dict>
+</plist>

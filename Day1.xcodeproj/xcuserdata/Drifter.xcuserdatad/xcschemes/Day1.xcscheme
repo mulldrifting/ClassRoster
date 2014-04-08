@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FE89641118F32369000AB713"
-               BuildableName = "Day1.app"
-               BlueprintName = "Day000002"
+               BuildableName = "Day2000003.app"
+               BlueprintName = "Day2000003"
                ReferencedContainer = "container:Day1.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE89641118F32369000AB713"
-            BuildableName = "Day1.app"
-            BlueprintName = "Day000002"
+            BuildableName = "Day2000003.app"
+            BlueprintName = "Day2000003"
             ReferencedContainer = "container:Day1.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE89641118F32369000AB713"
-            BuildableName = "Day1.app"
-            BlueprintName = "Day000002"
+            BuildableName = "Day2000003.app"
+            BlueprintName = "Day2000003"
             ReferencedContainer = "container:Day1.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE89641118F32369000AB713"
-            BuildableName = "Day1.app"
-            BlueprintName = "Day000002"
+            BuildableName = "Day2000003.app"
+            BlueprintName = "Day2000003"
             ReferencedContainer = "container:Day1.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -26,6 +26,7 @@
 		FE89645418F354F0000AB713 /* mulldrifter_small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE89645318F354F0000AB713 /* mulldrifter_small.jpg */; };
 		FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */; };
 		FE89645818F470D1000AB713 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89645718F470D1000AB713 /* AssetsLibrary.framework */; };
+		FE89645C18F4A367000AB713 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE89645B18F4A367000AB713 /* Property List.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		FE89645318F354F0000AB713 /* mulldrifter_small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mulldrifter_small.jpg; path = ../../../Images/mulldrifter_small.jpg; sourceTree = "<group>"; };
 		FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Code-Fellows-Logo.png"; path = "../../../Images/Code-Fellows-Logo.png"; sourceTree = "<group>"; };
 		FE89645718F470D1000AB713 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		FE89645B18F4A367000AB713 /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,16 +128,15 @@
 		FE89641B18F32369000AB713 /* Day1 */ = {
 			isa = PBXGroup;
 			children = (
+				FE89642718F32369000AB713 /* Main.storyboard */,
 				FE89642418F32369000AB713 /* AppDelegate.h */,
 				FE89642518F32369000AB713 /* AppDelegate.m */,
-				FE89642718F32369000AB713 /* Main.storyboard */,
-				FE89642A18F32369000AB713 /* RosterViewController.h */,
-				FE89642B18F32369000AB713 /* RosterViewController.m */,
-				FE89645018F343EE000AB713 /* PersonViewController.h */,
-				FE89645118F343EE000AB713 /* PersonViewController.m */,
+				FE89645918F4A2FA000AB713 /* Model */,
+				FE89645A18F4A311000AB713 /* Controller */,
 				FE89642D18F32369000AB713 /* Images.xcassets */,
 				FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */,
 				FE89645318F354F0000AB713 /* mulldrifter_small.jpg */,
+				FE89645B18F4A367000AB713 /* Property List.plist */,
 				FE89641C18F32369000AB713 /* Supporting Files */,
 			);
 			path = Day1;
@@ -148,8 +149,6 @@
 				FE89641E18F32369000AB713 /* InfoPlist.strings */,
 				FE89642118F32369000AB713 /* main.m */,
 				FE89642318F32369000AB713 /* Day1-Prefix.pch */,
-				FE89644D18F33726000AB713 /* Person.h */,
-				FE89644E18F33726000AB713 /* Person.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -172,12 +171,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FE89645918F4A2FA000AB713 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE89644D18F33726000AB713 /* Person.h */,
+				FE89644E18F33726000AB713 /* Person.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		FE89645A18F4A311000AB713 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FE89642A18F32369000AB713 /* RosterViewController.h */,
+				FE89642B18F32369000AB713 /* RosterViewController.m */,
+				FE89645018F343EE000AB713 /* PersonViewController.h */,
+				FE89645118F343EE000AB713 /* PersonViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FE89641118F32369000AB713 /* Day000002 */ = {
+		FE89641118F32369000AB713 /* Day2000003 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day000002" */;
+			buildConfigurationList = FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day2000003" */;
 			buildPhases = (
 				FE89640E18F32369000AB713 /* Sources */,
 				FE89640F18F32369000AB713 /* Frameworks */,
@@ -187,7 +206,7 @@
 			);
 			dependencies = (
 			);
-			name = Day000002;
+			name = Day2000003;
 			productName = Day1;
 			productReference = FE89641218F32369000AB713 /* Day1.app */;
 			productType = "com.apple.product-type.application";
@@ -237,7 +256,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FE89641118F32369000AB713 /* Day000002 */,
+				FE89641118F32369000AB713 /* Day2000003 */,
 				FE89643218F32369000AB713 /* Day1Tests */,
 			);
 		};
@@ -248,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE89645C18F4A367000AB713 /* Property List.plist in Resources */,
 				FE89642E18F32369000AB713 /* Images.xcassets in Resources */,
 				FE89642018F32369000AB713 /* InfoPlist.strings in Resources */,
 				FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */,
@@ -292,7 +312,7 @@
 /* Begin PBXTargetDependency section */
 		FE89643918F32369000AB713 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE89641118F32369000AB713 /* Day000002 */;
+			target = FE89641118F32369000AB713 /* Day2000003 */;
 			targetProxy = FE89643818F32369000AB713 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -473,7 +493,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day000002" */ = {
+		FE89644418F32369000AB713 /* Build configuration list for PBXNativeTarget "Day2000003" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE89644518F32369000AB713 /* Debug */,

@@ -13,7 +13,10 @@
 
 @interface PersonViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+@property (nonatomic, weak) IBOutlet UIImageView *personImageView;
+@property (nonatomic, weak) IBOutlet UITextView *personTextView;
 @property (strong, nonatomic) UIActionSheet *myActionSheet;
+
 @end
 
 @implementation PersonViewController
@@ -41,6 +44,11 @@
     _personTextView.text = _person.contactInfo;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -65,6 +73,11 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
     //    NSLog(@" %ld", (long)buttonIndex);
     
     // this works but it crashes: bad access
@@ -82,6 +95,14 @@
     else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose Photo"])
     {
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
+            NSLog(@"Authorization not granted");
+            // handle no authorization
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Access Photos" message:@"Authorization status not granted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+            
+            return;
+        }
     }
     
     else {
@@ -89,23 +110,32 @@
     }
     
     [self presentViewController:imagePicker animated:YES completion:nil];
-    
+
 }
 
 #pragma mark - UIImagePickerController Delegate Methods
+
+//- (void)showcamera {
+//    imagePicker = [[UIImagePickerController alloc] init];
+//    [imagePicker setDelegate:self];
+//    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+//    [imagePicker setAllowsEditing:YES];
+//    
+//    [self presentModalViewController:imagePicker animated:YES];
+//}
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     _person.headshot = [info objectForKey:UIImagePickerControllerEditedImage];
     _personImageView.image = _person.headshot;
-    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     [self dismissViewControllerAnimated:YES completion:^{
         
         ALAssetsLibrary *assetsLibrary = [ALAssetsLibrary new];
         if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
-            NSLog(@"Authorization status authorized: %ld Authorization status not determined: %ld", (long)ALAuthorizationStatusAuthorized, (long)ALAuthorizationStatusNotDetermined);
-            [assetsLibrary writeImageToSavedPhotosAlbum:originalImage.CGImage
+//            NSLog(@"Authorization status authorized: %ld Authorization status not determined: %ld", (long)ALAuthorizationStatusAuthorized, (long)ALAuthorizationStatusNotDetermined);
+            [assetsLibrary writeImageToSavedPhotosAlbum:_person.headshot.CGImage
                                             orientation:ALAssetOrientationUp
                                         completionBlock:^(NSURL *assetURL, NSError *error) {
                                             if (error) {
@@ -116,8 +146,8 @@
         else if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
             NSLog(@"Authorization not granted");
             // handle no authorization
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Save Photo" message:@"Authorization status not granted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Save Photo" message:@"Authorization status not granted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//            [alertView show];
         }
         else {
             NSLog(@"Authorization ???");
