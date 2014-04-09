@@ -8,6 +8,7 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PersonViewController.h"
+#import "RosterData.h"
 #import "Person.h"
 
 
@@ -39,8 +40,12 @@
     
     _personImageView.image = _person.headshot;
     
-//    _personImageView = [[UIImageView alloc] initWithImage:_person.headshot];
-//    _personTextView = [[UITextView alloc] init];
+    [_personImageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [_personImageView addGestureRecognizer:singleTap];
+    [self.view addSubview:_personImageView];
+    
     _personTextView.text = _person.contactInfo;
 }
 
@@ -55,9 +60,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+//    _person.firstName = _firstNameTextField.text;
+    
+//    NSLog(@" textfield: %@", _firstNameTextField.text);
+    
+    [[RosterData sharedData] save];
+}
+
 #pragma mark - UIActionSheet Delegate Methods
 
--(IBAction)findPicture:(id)sender {
+-(void)singleTapping:(UIGestureRecognizer *)recognizer
+{
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
@@ -68,7 +85,7 @@
     
     
     [self.myActionSheet showInView:self.view];
-    
+
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

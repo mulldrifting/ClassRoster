@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RosterDataSourceController.h"
 
 @interface RosterViewController : UIViewController
 

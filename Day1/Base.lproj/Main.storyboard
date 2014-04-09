@@ -67,7 +67,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKK-Ei-OoL">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKK-Ei-OoL">
                                 <rect key="frame" x="60" y="85" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
@@ -75,7 +75,7 @@
                                     <constraint firstAttribute="height" constant="200" id="shR-gv-JRb"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDe-Sb-kvU">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDe-Sb-kvU">
                                 <rect key="frame" x="20" y="338" width="280" height="159"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -83,18 +83,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUv-M6-CB8">
-                                <rect key="frame" x="133" y="293" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Camera">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="findPicture:" destination="J3y-2c-O6Z" eventType="touchUpInside" id="Agw-E6-BPZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Z5y-qh-Raz" firstAttribute="top" secondItem="XDe-Sb-kvU" secondAttribute="bottom" constant="71" id="1IH-4a-hYV"/>
+                            <constraint firstItem="TKK-Ei-OoL" firstAttribute="top" secondItem="YSk-sT-7mW" secondAttribute="bottom" constant="21" id="1oH-a8-A4U"/>
+                            <constraint firstItem="TKK-Ei-OoL" firstAttribute="centerX" secondItem="bpI-gH-aKq" secondAttribute="centerX" id="61Y-Xz-y5W"/>
+                            <constraint firstItem="TKK-Ei-OoL" firstAttribute="centerX" secondItem="XDe-Sb-kvU" secondAttribute="centerX" id="YWc-FM-tWe"/>
+                            <constraint firstItem="XDe-Sb-kvU" firstAttribute="top" secondItem="TKK-Ei-OoL" secondAttribute="bottom" constant="53" id="gr8-hl-B41"/>
+                            <constraint firstItem="XDe-Sb-kvU" firstAttribute="leading" secondItem="bpI-gH-aKq" secondAttribute="leading" constant="20" symbolic="YES" id="ncV-kk-a5p"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vGr-bY-oEk"/>
                     <connections>

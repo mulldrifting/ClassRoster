@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RosterViewDataSource : NSObject
+@interface RosterDataSourceController : NSObject <UITableViewDataSource>
+
+@property (nonatomic, strong) NSMutableArray *students, *teachers;
 
 @end

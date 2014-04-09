@@ -28,7 +28,10 @@
 		FE89645818F470D1000AB713 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE89645718F470D1000AB713 /* AssetsLibrary.framework */; };
 		FE89645C18F4A367000AB713 /* personList.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE89645B18F4A367000AB713 /* personList.plist */; };
 		FEEDD26918F4B8A2005BEEB4 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDD26818F4B8A2005BEEB4 /* PersonCell.m */; };
-		FEEDD26C18F4BC28005BEEB4 /* RosterViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDD26B18F4BC28005BEEB4 /* RosterViewDataSource.m */; };
+		FEEDD26C18F4BC28005BEEB4 /* RosterDataSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDD26B18F4BC28005BEEB4 /* RosterDataSourceController.m */; };
+		FEEDD26F18F5D813005BEEB4 /* RosterData.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEDD26E18F5D813005BEEB4 /* RosterData.m */; };
+		FEEDD27118F603C8005BEEB4 /* Add_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEDD27018F603C8005BEEB4 /* Add_Button.png */; };
+		FEEDD27318F60921005BEEB4 /* Add_Button2.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEDD27218F60921005BEEB4 /* Add_Button2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +74,12 @@
 		FE89645B18F4A367000AB713 /* personList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = personList.plist; sourceTree = "<group>"; };
 		FEEDD26718F4B8A2005BEEB4 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
 		FEEDD26818F4B8A2005BEEB4 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
-		FEEDD26A18F4BC28005BEEB4 /* RosterViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterViewDataSource.h; sourceTree = "<group>"; };
-		FEEDD26B18F4BC28005BEEB4 /* RosterViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterViewDataSource.m; sourceTree = "<group>"; };
+		FEEDD26A18F4BC28005BEEB4 /* RosterDataSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterDataSourceController.h; sourceTree = "<group>"; };
+		FEEDD26B18F4BC28005BEEB4 /* RosterDataSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterDataSourceController.m; sourceTree = "<group>"; };
+		FEEDD26D18F5D813005BEEB4 /* RosterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterData.h; sourceTree = "<group>"; };
+		FEEDD26E18F5D813005BEEB4 /* RosterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterData.m; sourceTree = "<group>"; };
+		FEEDD27018F603C8005BEEB4 /* Add_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Add_Button.png; path = ../../../../Desktop/Add_Button.png; sourceTree = "<group>"; };
+		FEEDD27218F60921005BEEB4 /* Add_Button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Add_Button2.png; path = ../../../../Desktop/Add_Button2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +110,7 @@
 		FE89640918F32369000AB713 = {
 			isa = PBXGroup;
 			children = (
-				FE89641B18F32369000AB713 /* Day1 */,
+				FE89641B18F32369000AB713 /* Roster */,
 				FE89643A18F32369000AB713 /* Day1Tests */,
 				FE89641418F32369000AB713 /* Frameworks */,
 				FE89641318F32369000AB713 /* Products */,
@@ -131,20 +138,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FE89641B18F32369000AB713 /* Day1 */ = {
+		FE89641B18F32369000AB713 /* Roster */ = {
 			isa = PBXGroup;
 			children = (
 				FE89642718F32369000AB713 /* Main.storyboard */,
 				FE89642418F32369000AB713 /* AppDelegate.h */,
 				FE89642518F32369000AB713 /* AppDelegate.m */,
-				FE89645918F4A2FA000AB713 /* Model */,
+				FE89645918F4A2FA000AB713 /* Data-Model */,
 				FE89645A18F4A311000AB713 /* View-Controller */,
 				FE89642D18F32369000AB713 /* Images.xcassets */,
 				FE89645518F361A6000AB713 /* Code-Fellows-Logo.png */,
+				FEEDD27018F603C8005BEEB4 /* Add_Button.png */,
+				FEEDD27218F60921005BEEB4 /* Add_Button2.png */,
 				FE89645318F354F0000AB713 /* mulldrifter_small.jpg */,
-				FE89645B18F4A367000AB713 /* personList.plist */,
 				FE89641C18F32369000AB713 /* Supporting Files */,
 			);
+			name = Roster;
 			path = Day1;
 			sourceTree = "<group>";
 		};
@@ -177,13 +186,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FE89645918F4A2FA000AB713 /* Model */ = {
+		FE89645918F4A2FA000AB713 /* Data-Model */ = {
 			isa = PBXGroup;
 			children = (
+				FE89645B18F4A367000AB713 /* personList.plist */,
 				FE89644D18F33726000AB713 /* Person.h */,
 				FE89644E18F33726000AB713 /* Person.m */,
+				FEEDD26D18F5D813005BEEB4 /* RosterData.h */,
+				FEEDD26E18F5D813005BEEB4 /* RosterData.m */,
 			);
-			name = Model;
+			name = "Data-Model";
 			sourceTree = "<group>";
 		};
 		FE89645A18F4A311000AB713 /* View-Controller */ = {
@@ -191,8 +203,8 @@
 			children = (
 				FE89642A18F32369000AB713 /* RosterViewController.h */,
 				FE89642B18F32369000AB713 /* RosterViewController.m */,
-				FEEDD26A18F4BC28005BEEB4 /* RosterViewDataSource.h */,
-				FEEDD26B18F4BC28005BEEB4 /* RosterViewDataSource.m */,
+				FEEDD26A18F4BC28005BEEB4 /* RosterDataSourceController.h */,
+				FEEDD26B18F4BC28005BEEB4 /* RosterDataSourceController.m */,
 				FE89645018F343EE000AB713 /* PersonViewController.h */,
 				FE89645118F343EE000AB713 /* PersonViewController.m */,
 				FEEDD26718F4B8A2005BEEB4 /* PersonCell.h */,
@@ -278,11 +290,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE89645C18F4A367000AB713 /* personList.plist in Resources */,
+				FEEDD27318F60921005BEEB4 /* Add_Button2.png in Resources */,
 				FE89642E18F32369000AB713 /* Images.xcassets in Resources */,
 				FE89642018F32369000AB713 /* InfoPlist.strings in Resources */,
 				FE89645618F361A6000AB713 /* Code-Fellows-Logo.png in Resources */,
 				FE89645418F354F0000AB713 /* mulldrifter_small.jpg in Resources */,
 				FE89642918F32369000AB713 /* Main.storyboard in Resources */,
+				FEEDD27118F603C8005BEEB4 /* Add_Button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,12 +315,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEEDD26F18F5D813005BEEB4 /* RosterData.m in Sources */,
 				FEEDD26918F4B8A2005BEEB4 /* PersonCell.m in Sources */,
 				FE89642C18F32369000AB713 /* RosterViewController.m in Sources */,
 				FE89642618F32369000AB713 /* AppDelegate.m in Sources */,
 				FE89644F18F33726000AB713 /* Person.m in Sources */,
 				FE89642218F32369000AB713 /* main.m in Sources */,
-				FEEDD26C18F4BC28005BEEB4 /* RosterViewDataSource.m in Sources */,
+				FEEDD26C18F4BC28005BEEB4 /* RosterDataSourceController.m in Sources */,
 				FE89645218F343EE000AB713 /* PersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

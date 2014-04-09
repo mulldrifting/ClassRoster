@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Person : NSObject
+@interface Person : NSObject <NSCoding>
 
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
@@ -18,5 +18,7 @@
 
 - (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName personType:(NSInteger)personType;
 - (NSString *)fullName;
+
+
 
 @end

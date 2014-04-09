@@ -8,21 +8,17 @@
 
 #import "RosterViewController.h"
 #import "PersonViewController.h"
-#import "RosterViewDataSource.h"
+#import "RosterData.h"
+#import "RosterDataSourceController.h"
 #import "Person.h"
 
-// Enumerator that labels the student type and teacher type
-typedef NS_ENUM(NSInteger, personType) {
-    kStudent,
-    kTeacher,
-    numberOfPersonTypes
-};
 
-@interface RosterViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface RosterViewController () <UITableViewDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) NSDictionary *personDictionary;
+@property (strong, nonatomic) RosterDataSourceController *dataSource;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
+@property (strong, nonatomic) UIActionSheet *sortActionSheet;
+//@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 
 @end
 
@@ -33,43 +29,135 @@ typedef NS_ENUM(NSInteger, personType) {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    self.dataSource = [RosterDataSourceController new];
+    self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     
     self.title = @"Class Roster";
+    
+    UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(pickSortOption:)];
+    self.navigationItem.leftBarButtonItem = sortButton;
+    
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
+    
+    
+    
 //    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
-    _students = [[NSMutableArray alloc] init];
-    _teachers = [[NSMutableArray alloc] init];
-    
-//    NSString *plistPath = @"/Users/Drifter/Documents/XCode/Day1/Day1/personList.plist";
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"personList" ofType:@"plist"];
-    _personDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    
-    for(NSString *currentStudentName in _personDictionary[@"studentArray"]) {
-        NSArray *splitName = [currentStudentName componentsSeparatedByString: @" "];
+//    _students = [[NSMutableArray alloc] init];
+//    _teachers = [[NSMutableArray alloc] init];
+//    
+////    NSString *plistPath = @"/Users/Drifter/Documents/XCode/Day1/Day1/personList.plist";
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"personList" ofType:@"plist"];
+//    _personDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//    
+//    for(NSString *currentStudentName in _personDictionary[@"studentArray"]) {
+//        NSArray *splitName = [currentStudentName componentsSeparatedByString: @" "];
+//        
+//        Person *newStudent = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
+//        [_students addObject:newStudent];
+//    }
+//    
+//    for(NSString *currentTeacherName in _personDictionary[@"teacherArray"]) {
+//        NSArray *splitName = [currentTeacherName componentsSeparatedByString: @" "];
+//        
+//        Person *newTeacher = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
+//        [_teachers addObject:newTeacher];
+//    }
+//    
         
-        Person *newStudent = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
-        [_students addObject:newStudent];
+    
+}
+
+-(void)pickSortOption:(id)sender {
+    
+   _sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"First Name", @"Last Name", nil];
+    
+    [self.sortActionSheet showInView:self.view];
+    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSString *sortKey;
+    
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"First Name"])
+    {
+        sortKey = @"firstName";
+        [[RosterData sharedData] sortByKey:sortKey];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Last Name"])
+    {
+        sortKey = @"lastName";
+        [[RosterData sharedData] sortByKey:sortKey];
+    }
+    else
+    {
+        return;
     }
     
-    for(NSString *currentTeacherName in _personDictionary[@"teacherArray"]) {
-        NSArray *splitName = [currentTeacherName componentsSeparatedByString: @" "];
+    [self.tableView reloadData];
+    
+}
+
+
+- (void)insertNewStudent:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Name:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = kStudent;
+    [alert addButtonWithTitle:@"Go"];
+    [alert show];
+    
+}
+
+- (void)insertNewTeacher:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Name:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = kTeacher;
+    [alert addButtonWithTitle:@"Go"];
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == kStudent) {
+        if (buttonIndex == 1) {
+            UITextField *textfield = [alertView textFieldAtIndex:0];
+            
+            NSArray *splitName = [textfield.text componentsSeparatedByString: @" "];
+            Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
+            [[RosterData sharedData] addNewPerson:newPerson withType:kStudent];
+            
+            NSLog(@"username: %@", textfield.text);
+            
+        }
         
-        Person *newTeacher = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
-        [_teachers addObject:newTeacher];
+    }
+    else if (alertView.tag == kTeacher)
+    {
+        if (buttonIndex == 1) {
+            UITextField *textfield = [alertView textFieldAtIndex:0];
+            
+            NSArray *splitName = [textfield.text componentsSeparatedByString: @" "];
+            Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
+            [[RosterData sharedData] addNewPerson:newPerson withType:kTeacher];
+            
+            NSLog(@"username: %@", textfield.text);
+        }
     }
     
-    //Sort teacher and student arrays by first name
-    NSSortDescriptor *firstNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
-    NSArray *sortDescriptors = @[firstNameDescriptor];
-    NSArray *sortedStudentArray = [_students sortedArrayUsingDescriptors:sortDescriptors];
-    NSArray *sortedTeacherArray = [_teachers sortedArrayUsingDescriptors:sortDescriptors];
-    //Set teacher and student arrays to sorted arrays
-    _students = [NSMutableArray arrayWithArray:sortedStudentArray];
-    _teachers = [NSMutableArray arrayWithArray:sortedTeacherArray];
-    
-    
+    [self.tableView reloadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -94,59 +182,58 @@ typedef NS_ENUM(NSInteger, personType) {
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-//    return numberOfSections;
-    return numberOfPersonTypes;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    switch (section) {
-        case kStudent:
-            return _students.count;
-        default:
-            return _teachers.count;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40; //play around with this value
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    switch (section) {
-        case kStudent:
-            return @"Students";
-        default:
-            return @"Teachers";
-    }
-}
 
 //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    return 0.0;
 //}
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50; //play around with this value
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    // create the parent view that will hold header Label
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 10.0, 300.0, 40.0)];
     
-    Person *person;
+    // create a label object
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0,10.0,100.0,40.0)];
     
-    switch (indexPath.section) {
+    switch (section) {
         case kStudent:
-            person = [_students objectAtIndex:indexPath.row];
+            titleLabel.text = @"Students";
             break;
         default:
-            person = [_teachers objectAtIndex:indexPath.row];
+            titleLabel.text = @"Teachers";
     }
     
-    cell.textLabel.text = person.fullName;
-    cell.imageView.image = person.headshot;
+    [customView addSubview:titleLabel];
     
-    return cell;
+    // create the button object
+    UIImage *unhighlightedButton = [UIImage imageNamed:@"Add_Button.png"];
+    UIImage *highlightedButton = [UIImage imageNamed:@"Add_Button2.png"];
+    
+    UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    addButton.backgroundColor = [UIColor clearColor];
+    addButton.opaque = YES;
+    addButton.frame = CGRectMake(280.0, 15.0, 30.0, 30.0);
+    [addButton setBackgroundImage:unhighlightedButton forState:UIControlStateNormal];
+    [addButton setBackgroundImage:highlightedButton forState:UIControlStateHighlighted];
+    [addButton setBackgroundImage:highlightedButton forState:UIControlStateSelected];
+    
+    switch (section) {
+        case kStudent:
+            [addButton addTarget:self action:@selector(insertNewStudent:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        default:
+            [addButton addTarget:self action:@selector(insertNewTeacher:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    [customView addSubview:addButton];
+    
+    return customView;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,9 +252,9 @@ typedef NS_ENUM(NSInteger, personType) {
         PersonViewController *destination = segue.destinationViewController;
         
         if (indexPath.section == 0) {
-            destination.person = [_students objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
+            destination.person = [[[RosterData sharedData] students] objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         } else {
-            destination.person = [_teachers objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
+            destination.person = [[[RosterData sharedData] teachers] objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         }
 
         //destinationViewController.navigationItem.title = selectedPerson.fullName;

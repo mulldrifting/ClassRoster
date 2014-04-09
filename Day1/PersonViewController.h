@@ -13,5 +13,6 @@
 
 @property (nonatomic, weak) Person *person;
 
+@property (nonatomic, strong) NSDictionary *personDictionary;
 
 @end
