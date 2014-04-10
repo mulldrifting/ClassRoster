@@ -35,6 +35,8 @@
     
     self.title = @"Class Roster";
     
+     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(pickSortOption:)];
     self.navigationItem.leftBarButtonItem = sortButton;
     
@@ -106,10 +108,24 @@
     
 }
 
+-(void)didMoveToParentViewController:(UIViewController *)parent {
+    [self.tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [[RosterData sharedData] removePersonAtIndex:indexPath.row section:indexPath.section];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+}
 
 - (void)insertNewStudent:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Name:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add New Student:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     alert.tag = kStudent;
@@ -120,7 +136,7 @@
 
 - (void)insertNewTeacher:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Name:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add New Teacher:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     alert.tag = kTeacher;

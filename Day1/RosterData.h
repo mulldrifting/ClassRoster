@@ -19,6 +19,7 @@
 + (RosterData *)sharedData;
 - (void)sortByKey:(NSString *)sortKey;
 - (void)addNewPerson:(Person *)newPerson withType:(NSInteger)newPersonType;
+- (void)removePersonAtIndex:(NSInteger)row section:(NSInteger)section;
 - (void)save;
 
 

@@ -128,6 +128,20 @@
     [[RosterData sharedData] save];
 }
 
+- (void)removePersonAtIndex:(NSInteger)row section:(NSInteger)section
+{
+    switch (section) {
+        case kStudent:
+            [_students removeObjectAtIndex:row];
+            break;
+            
+        default:
+            [_teachers removeObjectAtIndex:row];
+            break;
+    }
+    [[RosterData sharedData] save];
+}
+
 // update and save the teachers and students files
 - (void)save {
     [NSKeyedArchiver archiveRootObject:self.teachers toFile:[[RosterData applicationDocumentsDirectory] stringByAppendingPathComponent:@"teacherList.plist"]];
