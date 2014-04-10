@@ -45,7 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FE89641218F32369000AB713 /* Day1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Day1.app; path = Day2000003.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE89641218F32369000AB713 /* Day2000003.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Day2000003.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE89641518F32369000AB713 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FE89641718F32369000AB713 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FE89641918F32369000AB713 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -120,7 +120,7 @@
 		FE89641318F32369000AB713 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE89641218F32369000AB713 /* Day1.app */,
+				FE89641218F32369000AB713 /* Day2000003.app */,
 				FE89643318F32369000AB713 /* Day1Tests.xctest */,
 			);
 			name = Products;
@@ -230,7 +230,7 @@
 			);
 			name = Day2000003;
 			productName = Day1;
-			productReference = FE89641218F32369000AB713 /* Day1.app */;
+			productReference = FE89641218F32369000AB713 /* Day2000003.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FE89643218F32369000AB713 /* Day1Tests */ = {

@@ -148,12 +148,26 @@
     [NSKeyedArchiver archiveRootObject:self.students toFile:[[RosterData applicationDocumentsDirectory] stringByAppendingPathComponent:@"studentList.plist"]];
 }
 
+- (void)saveImagePath:(UIImage *)image person:(Person *)person
+{
+    // Save image to documents directory
+    NSData *pngData = UIImagePNGRepresentation(image);
+    NSString *documentsPath = [RosterData applicationDocumentsDirectory];
+    NSString *imageName = [NSString stringWithFormat:@"%@_%@.png", person.firstName, person.lastName];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:imageName]; //Add the file name
+    
+    [pngData writeToFile:filePath atomically:YES]; //Write the file
+    person.headshotPath = filePath; //Save image path to person
+    
+    [self save]; //Save the data to plist
+    NSLog(@"%@",person.headshotPath);
+}
+
 #pragma mark - plistPath
 
 +(NSString *)applicationDocumentsDirectory
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    //    [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 +(BOOL)checkForPlistFileInDocs:(NSString*)fileName

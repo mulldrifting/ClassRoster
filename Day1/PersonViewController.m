@@ -12,10 +12,11 @@
 #import "Person.h"
 
 
-@interface PersonViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface PersonViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *personImageView;
 @property (nonatomic, weak) IBOutlet UITextView *personTextView;
+@property (nonatomic, strong) UITextField *navBarTextField;
 @property (strong, nonatomic) UIActionSheet *myActionSheet;
 
 @end
@@ -36,16 +37,40 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = _person.fullName;
     
+    // Set up text field over nav bar title
+    _navBarTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 22)];
+    _navBarTextField.text = _person.fullName;
+    _navBarTextField.font = [UIFont boldSystemFontOfSize:19];
+    _navBarTextField.textAlignment = NSTextAlignmentCenter;
+    
+    // Set text field delegate to self
+    _navBarTextField.delegate = self;
+    
+    self.navigationItem.titleView = _navBarTextField;
+    
+    // Make keyboard disappear upon return
+    [_navBarTextField addTarget:_navBarTextField
+                  action:@selector(resignFirstResponder)
+        forControlEvents:UIControlEventEditingDidEndOnExit];
+    
+    // Make keyboard disappear upon tapping outside text field
+    UITapGestureRecognizer *tapOutside = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tapOutside];
+    
+    // Set up image in image view
     _personImageView.image = _person.headshot;
     
+    // Make action sheet open when tapping image
     [_personImageView setUserInteractionEnabled:YES];
-    UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [_personImageView addGestureRecognizer:singleTap];
+    UITapGestureRecognizer *tapImage =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openActionSheet:)];
+    [_personImageView addGestureRecognizer:tapImage];
     [self.view addSubview:_personImageView];
     
+    // Set up second text field for later
+    _personTextView.editable = NO;
     _personTextView.text = _person.contactInfo;
 }
 
@@ -64,16 +89,29 @@
 {
     [super viewWillDisappear:animated];
     
-//    _person.firstName = _firstNameTextField.text;
+    [[RosterData sharedData] save];
+}
+
+#pragma mark - UITextFieldDelegate Methods
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     
-//    NSLog(@" textfield: %@", _firstNameTextField.text);
+    NSArray *splitName = [textField.text componentsSeparatedByString: @" "];
+
+    _person.firstName = splitName[0];
+    _person.lastName = splitName[1];
     
     [[RosterData sharedData] save];
+    
+}
+
+-(void)dismissKeyboard {
+    [_navBarTextField resignFirstResponder];
 }
 
 #pragma mark - UIActionSheet Delegate Methods
 
--(void)singleTapping:(UIGestureRecognizer *)recognizer
+-(void)openActionSheet:(UIGestureRecognizer *)recognizer
 {
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -132,26 +170,23 @@
 
 #pragma mark - UIImagePickerController Delegate Methods
 
-//- (void)showcamera {
-//    imagePicker = [[UIImagePickerController alloc] init];
-//    [imagePicker setDelegate:self];
-//    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-//    [imagePicker setAllowsEditing:YES];
-//    
-//    [self presentModalViewController:imagePicker animated:YES];
-//}
-
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     _person.headshot = [info objectForKey:UIImagePickerControllerEditedImage];
     _personImageView.image = _person.headshot;
-//    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [[RosterData sharedData] saveImagePath:_personImageView.image person:_person];
     
     [self dismissViewControllerAnimated:YES completion:^{
         
         ALAssetsLibrary *assetsLibrary = [ALAssetsLibrary new];
-        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
+        
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined)
+        {
+            // If authorized to access photo library, save image to library
+            
 //            NSLog(@"Authorization status authorized: %ld Authorization status not determined: %ld", (long)ALAuthorizationStatusAuthorized, (long)ALAuthorizationStatusNotDetermined);
+            
             [assetsLibrary writeImageToSavedPhotosAlbum:_person.headshot.CGImage
                                             orientation:ALAssetOrientationUp
                                         completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -160,7 +195,9 @@
                                             }
                                         }];
         }
-        else if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
+        
+        else if([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied || [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted)
+        {
             NSLog(@"Authorization not granted");
             // handle no authorization
 //            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Save Photo" message:@"Authorization status not granted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

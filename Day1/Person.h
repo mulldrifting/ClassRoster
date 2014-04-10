@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic) NSInteger personType;
 @property (nonatomic, strong) UIImage *headshot;
+@property (nonatomic, copy) NSString *headshotPath;
 @property (nonatomic, strong) NSString *contactInfo;
 
 - (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName personType:(NSInteger)personType;

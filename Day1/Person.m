@@ -17,6 +17,7 @@
         _lastName = lastName;
         _personType = personType;
         _headshot = [UIImage imageNamed:@"mulldrifter_small.jpg"];
+        _headshotPath = nil;
         _contactInfo = @"Twitter: ";
     }
     
@@ -35,6 +36,7 @@
         self.firstName = [aDecoder decodeObjectForKey:@"firstName"];
         self.lastName = [aDecoder decodeObjectForKey:@"lastName"];
         self.headshot = [UIImage imageWithData:[aDecoder decodeObjectForKey:@"image"]];
+        self.headshotPath = [aDecoder decodeObjectForKey:@"headshotPath"];
         self.contactInfo = [aDecoder decodeObjectForKey:@"contactInfo"];
     }
     return self;
@@ -45,6 +47,7 @@
     [aCoder encodeObject:self.firstName forKey:@"firstName"];
     [aCoder encodeObject:self.lastName forKey:@"lastName"];
     [aCoder encodeObject:UIImagePNGRepresentation(self.headshot) forKey:@"image"];
+    [aCoder encodeObject:self.headshotPath forKey:@"headshotPath"];
     [aCoder encodeObject:self.contactInfo forKey:@"contactInfo"];
 }
 

@@ -13,11 +13,12 @@
 #import "Person.h"
 
 
-@interface RosterViewController () <UITableViewDelegate, UIActionSheetDelegate>
+@interface RosterViewController () <UITableViewDelegate, UIActionSheetDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) RosterDataSourceController *dataSource;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIActionSheet *sortActionSheet;
+@property (strong, nonatomic) UIAlertView *addAlertView;
 //@property (nonatomic, strong) IBOutlet UIImageView *logoImageView;
 
 @end
@@ -40,6 +41,8 @@
     UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(pickSortOption:)];
     self.navigationItem.leftBarButtonItem = sortButton;
     
+
+    
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
 //    self.navigationItem.rightBarButtonItem = addButton;
     
@@ -47,31 +50,9 @@
     
 //    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
-//    _students = [[NSMutableArray alloc] init];
-//    _teachers = [[NSMutableArray alloc] init];
-//    
-////    NSString *plistPath = @"/Users/Drifter/Documents/XCode/Day1/Day1/personList.plist";
-//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"personList" ofType:@"plist"];
-//    _personDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-//    
-//    for(NSString *currentStudentName in _personDictionary[@"studentArray"]) {
-//        NSArray *splitName = [currentStudentName componentsSeparatedByString: @" "];
-//        
-//        Person *newStudent = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
-//        [_students addObject:newStudent];
-//    }
-//    
-//    for(NSString *currentTeacherName in _personDictionary[@"teacherArray"]) {
-//        NSArray *splitName = [currentTeacherName componentsSeparatedByString: @" "];
-//        
-//        Person *newTeacher = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
-//        [_teachers addObject:newTeacher];
-//    }
-//    
-        
-    
 }
 
+#pragma mark - UIActionSheetDelegate Methods
 -(void)pickSortOption:(id)sender {
     
    _sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"First Name", @"Last Name", nil];
@@ -108,40 +89,31 @@
     
 }
 
--(void)didMoveToParentViewController:(UIViewController *)parent {
-    [self.tableView reloadData];
-}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [[RosterData sharedData] removePersonAtIndex:indexPath.row section:indexPath.section];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
+
+#pragma mark - UIAlertView and UITextFieldDelegate Methods
 
 - (void)insertNewStudent:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add New Student:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    _addAlertView = [[UIAlertView alloc] initWithTitle:@"Add New Student:" message:@"Please enter their first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.tag = kStudent;
-    [alert addButtonWithTitle:@"Go"];
-    [alert show];
+    _addAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    _addAlertView.tag = kStudent;
+    [_addAlertView addButtonWithTitle:@"Go"];
+    [[_addAlertView textFieldAtIndex:0] setDelegate:self];
+    [_addAlertView show];
     
 }
 
 - (void)insertNewTeacher:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add New Teacher:" message:@"Please enter your first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    _addAlertView = [[UIAlertView alloc] initWithTitle:@"Add New Teacher:" message:@"Please enter their first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
     
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.tag = kTeacher;
-    [alert addButtonWithTitle:@"Go"];
-    [alert show];
+    _addAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    _addAlertView.tag = kTeacher;
+    [_addAlertView addButtonWithTitle:@"Go"];
+    [[_addAlertView textFieldAtIndex:0] setDelegate:self];
+    [_addAlertView show];
     
 }
 
@@ -155,7 +127,7 @@
             Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
             [[RosterData sharedData] addNewPerson:newPerson withType:kStudent];
             
-            NSLog(@"username: %@", textfield.text);
+//            NSLog(@"username: %@", textfield.text);
             
         }
         
@@ -169,12 +141,31 @@
             Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
             [[RosterData sharedData] addNewPerson:newPerson withType:kTeacher];
             
-            NSLog(@"username: %@", textfield.text);
+//            NSLog(@"username: %@", textfield.text);
         }
     }
     
     [self.tableView reloadData];
 }
+
+//-(BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+//{
+//    NSLog(@"alert view return");
+//    [_addAlertView dismissWithClickedButtonIndex:_addAlertView.firstOtherButtonIndex animated:YES];
+//    return YES;
+//}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    NSLog(@"text field return");
+    [_addAlertView dismissWithClickedButtonIndex:_addAlertView.firstOtherButtonIndex animated:YES];
+    return YES;
+}
+
+#pragma mark - UIView and UITableViewDelegate Methods
+
+//-(void)didMoveToParentViewController:(UIViewController *)parent {
+//    [self.tableView reloadData];
+//}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -188,7 +179,7 @@
 {
     [super viewWillDisappear:animated];
     
-    self.navigationItem.title = @"Back";
+    self.navigationItem.title = @"";
 }
 
 
@@ -215,20 +206,22 @@
     
     // create a label object
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0,10.0,100.0,40.0)];
-    
+    titleLabel.textColor = [UIColor colorWithRed:0.216 green:0.233 blue:0.349 alpha:1.000];
+//    titleLabel.font = [UIFont fontWithName:@"Helvetica" size:(17.0)];
+    titleLabel.font = [titleLabel.font fontWithSize:(16.0)];
     switch (section) {
         case kStudent:
-            titleLabel.text = @"Students";
+            titleLabel.text = @"STUDENTS";
             break;
         default:
-            titleLabel.text = @"Teachers";
+            titleLabel.text = @"TEACHERS";
     }
     
     [customView addSubview:titleLabel];
     
     // create the button object
-    UIImage *unhighlightedButton = [UIImage imageNamed:@"Add_Button.png"];
-    UIImage *highlightedButton = [UIImage imageNamed:@"Add_Button2.png"];
+    UIImage *unhighlightedButton = [UIImage imageNamed:@"Add_Button2.png"];
+    UIImage *highlightedButton = [UIImage imageNamed:@"Add_Button.png"];
     
     UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectZero];
     addButton.backgroundColor = [UIColor clearColor];
@@ -257,6 +250,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [[RosterData sharedData] removePersonAtIndex:indexPath.row section:indexPath.section];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -272,7 +275,7 @@
         } else {
             destination.person = [[[RosterData sharedData] teachers] objectAtIndex:[[_tableView indexPathForSelectedRow] row]];
         }
-
+        
         //destinationViewController.navigationItem.title = selectedPerson.fullName;
     }
 }
