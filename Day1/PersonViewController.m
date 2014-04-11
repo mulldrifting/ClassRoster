@@ -7,113 +7,170 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <Social/Social.h>
 #import "PersonViewController.h"
 #import "RosterData.h"
 #import "Person.h"
 
+typedef NS_ENUM(NSInteger, textFieldType) {
+    kTitle,
+    kTwitter,
+    kGitbhub,
+    numberOfTextFields
+};
 
 @interface PersonViewController () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIView *scrollSubview;
+
 @property (nonatomic, weak) IBOutlet UIImageView *personImageView;
-@property (nonatomic, weak) IBOutlet UITextView *personTextView;
+
+@property (nonatomic, weak) IBOutlet UITextField *twitterTextField;
+@property (nonatomic, weak) IBOutlet UITextField *githubTextField;
 @property (nonatomic, strong) UITextField *navBarTextField;
+@property (nonatomic, strong) NSArray *textFieldArray;
+
+@property (weak, nonatomic) IBOutlet UIButton *tweetButton;
+
+//@property (weak, nonatomic) IBOutlet UIButton *tweetButton;
+
+
 @property (strong, nonatomic) UIActionSheet *myActionSheet;
 
 @end
 
 @implementation PersonViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    // Set up views
+//    [self.scrollView setBackgroundColor:[UIColor yellowColor]];
+//    [self.scrollSubview setBackgroundColor:[UIColor grayColor]];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-    // Set up text field over nav bar title
+    // Set up text field in nav bar
     _navBarTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 22)];
     _navBarTextField.text = _person.fullName;
     _navBarTextField.font = [UIFont boldSystemFontOfSize:19];
     _navBarTextField.textAlignment = NSTextAlignmentCenter;
+
+    // Create array of text fields
+    self.textFieldArray = [NSArray arrayWithObjects:self.navBarTextField, self.twitterTextField, self.githubTextField, nil];
     
-    // Set text field delegate to self
-    _navBarTextField.delegate = self;
+    NSInteger i = 0;
+    for (UITextField *textField in self.textFieldArray) {
+    // Set all text field delegates to the view controller
+        textField.delegate = self;
+        
+        // Make keyboard disappear upon return
+        [textField addTarget:textField action:@selector(resignFirstResponder) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        // Set tags for each textfield
+        textField.tag = i;
+        i+=1;
+    }
     
+    // Set items to the text field
     self.navigationItem.titleView = _navBarTextField;
-    
-    // Make keyboard disappear upon return
-    [_navBarTextField addTarget:_navBarTextField
-                  action:@selector(resignFirstResponder)
-        forControlEvents:UIControlEventEditingDidEndOnExit];
+    if (_person.twitter) {
+        _twitterTextField.text = _person.twitter;
+    }
+    if (_person.github) {
+        _githubTextField.text = _person.github;
+    }
     
     // Make keyboard disappear upon tapping outside text field
     UITapGestureRecognizer *tapOutside = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tapOutside];
+    [self.scrollSubview addGestureRecognizer:tapOutside];
     
     // Set up image in image view
     _personImageView.image = _person.headshot;
+    CALayer *imageLayer = [_personImageView layer];
+    [imageLayer setMasksToBounds:YES];
+    [imageLayer setCornerRadius:50.0];
+    [imageLayer setBorderColor: [[UIColor blackColor] CGColor]];
+    [imageLayer setBorderWidth: 4.0];
     
     // Make action sheet open when tapping image
     [_personImageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tapImage =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openActionSheet:)];
     [_personImageView addGestureRecognizer:tapImage];
-    [self.view addSubview:_personImageView];
     
-    // Set up second text field for later
-    _personTextView.editable = NO;
-    _personTextView.text = _person.contactInfo;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [[RosterData sharedData] save];
+    [self dismissKeyboard];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+//    [self.navigationController.navigationBar endEditing:YES];
+////    [self.navBarTextField endEditing:YES];
+//    for (UIControl *control in self.view.subviews) {
+//        if ([control isKindOfClass:[UITextField class]]) {
+//            [control endEditing:YES];
+//        }
+//    }
+}
+
+-(IBAction)sharePhoto:(id)sender
+{
+    UIActivityViewController *sharePhotoVC = [[UIActivityViewController alloc] initWithActivityItems:@[self.personImageView.image] applicationActivities:nil];
+    [self presentViewController:sharePhotoVC animated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate Methods
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case kTitle:
+            break;
+        default: // is equal to kTwitter or kGitbhub
+            [self.scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y-100) animated:YES];
+            break;
+    }
+
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
-    NSArray *splitName = [textField.text componentsSeparatedByString: @" "];
-
-    _person.firstName = splitName[0];
-    _person.lastName = splitName[1];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    switch (textField.tag) {
+        case kTitle:
+            [self.person splitFullName:textField.text];
+            break;
+        case kTwitter:
+            self.person.twitter = textField.text;
+            break;
+        default: // is equal to kGithub
+            self.person.github = textField.text;
+            break;
+    }
     
     [[RosterData sharedData] save];
     
 }
 
 -(void)dismissKeyboard {
-    [_navBarTextField resignFirstResponder];
+    for (UITextField *textField in self.textFieldArray) {
+        [textField resignFirstResponder];
+    }
 }
 
 #pragma mark - UIActionSheet Delegate Methods
 
 -(void)openActionSheet:(UIGestureRecognizer *)recognizer
 {
-    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
         _myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photos" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Photo",nil];
@@ -121,21 +178,12 @@
         _myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Photos" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Choose Photo",nil];
     }
     
-    
     [self.myActionSheet showInView:self.view];
 
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    //    NSLog(@" %ld", (long)buttonIndex);
-    
-    // this works but it crashes: bad access
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     imagePicker.delegate = self;
@@ -208,20 +256,19 @@
         }
     }];
     
-
-
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Social Media Methods
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(IBAction)sendToTwitter:(id)sender {
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"@%@ ",self.person.twitter]];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    }
 }
-*/
 
 
 @end

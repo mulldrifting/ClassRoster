@@ -33,10 +33,11 @@
     self.dataSource = [RosterDataSourceController new];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
+    self.tableView.userInteractionEnabled = YES;
     
     self.title = @"Class Roster";
     
-     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(pickSortOption:)];
     self.navigationItem.leftBarButtonItem = sortButton;
@@ -53,6 +54,7 @@
 }
 
 #pragma mark - UIActionSheetDelegate Methods
+
 -(void)pickSortOption:(id)sender {
     
    _sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"First Name", @"Last Name", nil];
@@ -122,9 +124,7 @@
     if (alertView.tag == kStudent) {
         if (buttonIndex == 1) {
             UITextField *textfield = [alertView textFieldAtIndex:0];
-            
-            NSArray *splitName = [textfield.text componentsSeparatedByString: @" "];
-            Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
+            Person *newPerson = [[Person alloc] initWithFullName:textfield.text personType:kStudent];
             [[RosterData sharedData] addNewPerson:newPerson withType:kStudent];
             
 //            NSLog(@"username: %@", textfield.text);
@@ -136,9 +136,7 @@
     {
         if (buttonIndex == 1) {
             UITextField *textfield = [alertView textFieldAtIndex:0];
-            
-            NSArray *splitName = [textfield.text componentsSeparatedByString: @" "];
-            Person *newPerson = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
+            Person *newPerson = [[Person alloc] initWithFullName:textfield.text personType:kTeacher];
             [[RosterData sharedData] addNewPerson:newPerson withType:kTeacher];
             
 //            NSLog(@"username: %@", textfield.text);
@@ -250,16 +248,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [[RosterData sharedData] removePersonAtIndex:indexPath.row section:indexPath.section];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
 }
+
+
+
+
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

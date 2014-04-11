@@ -13,6 +13,6 @@
 
 @property (nonatomic, weak) Person *person;
 
-@property (nonatomic, strong) NSDictionary *personDictionary;
+-(IBAction)sendToTwitter:(id)sender;
 
 @end

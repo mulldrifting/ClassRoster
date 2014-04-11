@@ -54,8 +54,7 @@
         for(NSString *currentStudentName in personDictionary[@"studentArray"]) {
             
             // creates and initializes new Person object
-            NSArray *splitName = [currentStudentName componentsSeparatedByString: @" "];
-            Person *newStudent = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kStudent];
+            Person *newStudent = [[Person alloc] initWithFullName:currentStudentName personType:kStudent];
             [students addObject:newStudent];
         }
 
@@ -90,9 +89,8 @@
         
         // for loop for creating teachers array
         for(NSString *currentTeacherName in personDictionary[@"teacherArray"]) {
-            NSArray *splitName = [currentTeacherName componentsSeparatedByString: @" "];
             
-            Person *newTeacher = [[Person alloc] initWithFirstName:splitName[0] lastName:splitName[1] personType:kTeacher];
+            Person *newTeacher = [[Person alloc] initWithFullName:currentTeacherName personType:kTeacher];
             [teachers addObject:newTeacher];
         }
         
@@ -116,7 +114,7 @@
 
 }
 
--(void)addNewPerson:(Person *)newPerson withType:(NSInteger)newPersonType {
+-(void)addNewPerson:(Person *)newPerson withType:(personLabel)newPersonType {
     switch (newPersonType) {
         case kStudent:
             [_students insertObject:newPerson atIndex:0];
@@ -153,7 +151,7 @@
     // Save image to documents directory
     NSData *pngData = UIImagePNGRepresentation(image);
     NSString *documentsPath = [RosterData applicationDocumentsDirectory];
-    NSString *imageName = [NSString stringWithFormat:@"%@_%@.png", person.firstName, person.lastName];
+    NSString *imageName = [NSString stringWithFormat:@"%@.png", person.fullName];
     NSString *filePath = [documentsPath stringByAppendingPathComponent:imageName]; //Add the file name
     
     [pngData writeToFile:filePath atomically:YES]; //Write the file
