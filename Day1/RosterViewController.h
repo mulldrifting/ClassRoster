@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RosterDataSourceController.h"
 
 @interface RosterViewController : UIViewController
 
-@property (nonatomic, strong) NSMutableArray *students;
-@property (nonatomic, strong) NSMutableArray *teachers;
+//@property (nonatomic, strong) NSMutableArray *students, *teachers;
 
 @end

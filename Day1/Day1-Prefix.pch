@@ -14,3 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+// Enumerator that labels the student type and teacher type
+typedef NS_ENUM(NSInteger, personLabel) {
+    kStudent,
+    kTeacher,
+    numberOfPersonTypes
+};
