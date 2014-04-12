@@ -10,6 +10,6 @@
 
 @interface RosterDataSourceController : NSObject <UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *students, *teachers;
+//@property (nonatomic, strong) NSMutableArray *students, *teachers;
 
 @end

@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, textFieldType) {
     [imageLayer setMasksToBounds:YES];
     [imageLayer setCornerRadius:50.0];
     [imageLayer setBorderColor: [[UIColor blackColor] CGColor]];
-    [imageLayer setBorderWidth: 4.0];
+    [imageLayer setBorderWidth: 10.0];
     
     // Make action sheet open when tapping image
     [_personImageView setUserInteractionEnabled:YES];
@@ -158,7 +158,6 @@ typedef NS_ENUM(NSInteger, textFieldType) {
     }
     
     [[RosterData sharedData] save];
-    
 }
 
 -(void)dismissKeyboard {

@@ -197,7 +197,6 @@
 		FE89645918F4A2FA000AB713 /* Data-Model */ = {
 			isa = PBXGroup;
 			children = (
-				FEEDD26A18F4BC28005BEEB4 /* RosterDataSourceController.h */,
 				FE89644D18F33726000AB713 /* Person.h */,
 				FE89644E18F33726000AB713 /* Person.m */,
 				FEEDD26D18F5D813005BEEB4 /* RosterData.h */,
@@ -211,6 +210,7 @@
 			children = (
 				FE89642A18F32369000AB713 /* RosterViewController.h */,
 				FE89642B18F32369000AB713 /* RosterViewController.m */,
+				FEEDD26A18F4BC28005BEEB4 /* RosterDataSourceController.h */,
 				FEEDD26B18F4BC28005BEEB4 /* RosterDataSourceController.m */,
 				FE89645018F343EE000AB713 /* PersonViewController.h */,
 				FE89645118F343EE000AB713 /* PersonViewController.m */,

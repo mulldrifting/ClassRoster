@@ -77,7 +77,7 @@
 {
     [aCoder encodeObject:self.firstName forKey:@"firstName"];
     [aCoder encodeObject:self.lastName forKey:@"lastName"];
-    [aCoder encodeObject:UIImagePNGRepresentation(self.headshot) forKey:@"image"];
+//    [aCoder encodeObject:UIImagePNGRepresentation(self.headshot) forKey:@"image"];
     [aCoder encodeObject:self.headshotPath forKey:@"headshotPath"];
     [aCoder encodeObject:self.twitter forKey:@"twitter"];
     [aCoder encodeObject:self.github forKey:@"github"];

@@ -28,8 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
+    // Set up table view
     self.dataSource = [RosterDataSourceController new];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self;
@@ -39,15 +39,21 @@
     
 //     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    // Set up navigation buttons
     UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(pickSortOption:)];
     self.navigationItem.leftBarButtonItem = sortButton;
     
-
+    // Initialize action sheet
+    _sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"First Name", @"Last Name", nil];
+    
+    // Initialize alert view
+    _addAlertView = [[UIAlertView alloc] initWithTitle:@"Add New Person:" message:@"Please enter their first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    _addAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [_addAlertView addButtonWithTitle:@"Go"];
+    [[_addAlertView textFieldAtIndex:0] setDelegate:self];
     
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
 //    self.navigationItem.rightBarButtonItem = addButton;
-    
-    
     
 //    _logoImageView.image = [UIImage imageNamed:@"Code-Fellows-Logo.png"];
     
@@ -55,17 +61,9 @@
 
 #pragma mark - UIActionSheetDelegate Methods
 
--(void)pickSortOption:(id)sender {
-    
-   _sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort By" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"First Name", @"Last Name", nil];
-    
-    [self.sortActionSheet showInView:self.view];
-    
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+-(void)pickSortOption:(id)sender
 {
-    
+    [self.sortActionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -88,58 +86,41 @@
     }
     
     [self.tableView reloadData];
-    
 }
 
 
 
 #pragma mark - UIAlertView and UITextFieldDelegate Methods
 
-- (void)insertNewStudent:(id)sender
+- (void)showStudentAlert:(id)sender
 {
-    _addAlertView = [[UIAlertView alloc] initWithTitle:@"Add New Student:" message:@"Please enter their first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-    
-    _addAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    _addAlertView.title = @"Enter New Student:";
     _addAlertView.tag = kStudent;
-    [_addAlertView addButtonWithTitle:@"Go"];
-    [[_addAlertView textFieldAtIndex:0] setDelegate:self];
     [_addAlertView show];
-    
 }
 
-- (void)insertNewTeacher:(id)sender
+- (void)showTeacherAlert:(id)sender
 {
-    _addAlertView = [[UIAlertView alloc] initWithTitle:@"Add New Teacher:" message:@"Please enter their first and last name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-    
-    _addAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    _addAlertView.title = @"Enter New Teacher:";
     _addAlertView.tag = kTeacher;
-    [_addAlertView addButtonWithTitle:@"Go"];
-    [[_addAlertView textFieldAtIndex:0] setDelegate:self];
     [_addAlertView show];
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    UITextField *textfield = [alertView textFieldAtIndex:0];
+    
     if (alertView.tag == kStudent) {
         if (buttonIndex == 1) {
-            UITextField *textfield = [alertView textFieldAtIndex:0];
             Person *newPerson = [[Person alloc] initWithFullName:textfield.text personType:kStudent];
             [[RosterData sharedData] addNewPerson:newPerson withType:kStudent];
-            
-//            NSLog(@"username: %@", textfield.text);
-            
         }
-        
     }
     else if (alertView.tag == kTeacher)
     {
         if (buttonIndex == 1) {
-            UITextField *textfield = [alertView textFieldAtIndex:0];
             Person *newPerson = [[Person alloc] initWithFullName:textfield.text personType:kTeacher];
             [[RosterData sharedData] addNewPerson:newPerson withType:kTeacher];
-            
-//            NSLog(@"username: %@", textfield.text);
         }
     }
     
@@ -231,10 +212,10 @@
     
     switch (section) {
         case kStudent:
-            [addButton addTarget:self action:@selector(insertNewStudent:) forControlEvents:UIControlEventTouchUpInside];
+            [addButton addTarget:self action:@selector(showStudentAlert:) forControlEvents:UIControlEventTouchUpInside];
             break;
         default:
-            [addButton addTarget:self action:@selector(insertNewTeacher:) forControlEvents:UIControlEventTouchUpInside];
+            [addButton addTarget:self action:@selector(showTeacherAlert:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     [customView addSubview:addButton];
